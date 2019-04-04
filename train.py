@@ -40,4 +40,7 @@ model.add(Dense(num_classes, activation='softmax'))
 model.compile(loss="categorical_crossentropy",
                   optimizer="adam",
                   metrics=['accuracy'])
+config.total_params = model.count_params()
+
+
 model.fit(X_train, y_train_hot, batch_size=config.batch_size, epochs=config.epochs, validation_data=(X_test, y_test_hot), callbacks=[WandbCallback(data_type="image", labels=labels)])
