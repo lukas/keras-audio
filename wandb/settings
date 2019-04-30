@@ -1,4 +1,4 @@
 [default]
-entity: qualcomm
-project: audio-mar28
+entity: mlclass
+project: audio-apr30
 base_url: https://api.wandb.ai
