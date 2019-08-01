@@ -1,4 +1,4 @@
 [default]
 entity: qualcomm
-project: audio-may13
+project: audio-july2
 base_url: https://api.wandb.ai
