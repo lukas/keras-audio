@@ -3,6 +3,7 @@ import keras
 from keras.models import Sequential
 from keras.layers import Dense, Dropout, Flatten, Conv2D, MaxPooling2D
 from keras.utils import to_categorical
+import glob
 import wandb
 from wandb.keras import WandbCallback
 
@@ -13,8 +14,9 @@ config.max_len = 11
 config.buckets = 20
 
 
-# Save data to array file first
-save_data_to_array(max_len=config.max_len, n_mfcc=config.buckets)
+# Cache pre-processed data
+if len(glob.glob("*.npy")) == 0:
+    save_data_to_array(max_len=config.max_len, n_mfcc=config.buckets)
 
 labels = ["bed", "happy", "cat"]
 
@@ -45,5 +47,5 @@ model.compile(loss="categorical_crossentropy",
 config.total_params = model.count_params()
 
 
-model.fit(X_train, y_train_hot, batch_size=config.batch_size, epochs=config.epochs, validation_data=(X_test, y_test_hot), callbacks=[WandbCallback(data_type="image", labels=labels)])
-
+model.fit(X_train, y_train_hot, batch_size=config.batch_size, epochs=config.epochs, validation_data=(
+    X_test, y_test_hot), callbacks=[WandbCallback(data_type="image", labels=labels)])
