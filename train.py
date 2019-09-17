@@ -1,5 +1,5 @@
 from preprocess import *
-from tensorflow import keras
+import tensorflow as tf
 import glob
 import wandb
 
@@ -31,18 +31,18 @@ X_train = X_train.reshape(
 X_test = X_test.reshape(
     X_test.shape[0], config.buckets, config.max_len, channels)
 
-y_train_hot = keras.utils.to_categorical(y_train)
-y_test_hot = keras.utils.to_categorical(y_test)
+y_train_hot = tf.keras.utils.to_categorical(y_train)
+y_test_hot = tf.keras.utils.to_categorical(y_test)
 
-model = keras.models.Sequential()
-model.add(keras.layers.Flatten(input_shape=(
+model = tf.keras.models.Sequential()
+model.add(tf.keras.layers.Flatten(input_shape=(
     config.buckets, config.max_len, channels)))
-model.add(keras.layers.Dense(num_classes, activation='softmax'))
+model.add(tf.keras.layers.Dense(num_classes, activation='softmax'))
 model.compile(loss="categorical_crossentropy",
               optimizer="adam",
               metrics=['accuracy'])
 config.total_params = model.count_params()
 
 
-model.fit(X_train[:1000], y_train_hot[:1000], batch_size=config.batch_size, epochs=config.epochs, validation_data=(
+model.fit(X_train, y_train_hot, batch_size=config.batch_size, epochs=config.epochs, validation_data=(
     X_test, y_test_hot), callbacks=[wandb.keras.WandbCallback(data_type="image", labels=labels)])
