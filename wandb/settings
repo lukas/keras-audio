@@ -1,5 +1,5 @@
 [default]
-entity = qualcomm
-project = audio-sep27
+entity = bloomberg-class
+project = audio
 base_url = https://api.wandb.ai
 
