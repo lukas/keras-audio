@@ -1,5 +1,5 @@
 [default]
-entity = bloomberg-class
+entity = odsc-class
 project = audio
 base_url = https://api.wandb.ai
 
