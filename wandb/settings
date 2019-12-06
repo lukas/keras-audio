@@ -2,4 +2,3 @@
 entity = qualcomm
 project = audio-dec5
 base_url = https://api.wandb.ai
-
